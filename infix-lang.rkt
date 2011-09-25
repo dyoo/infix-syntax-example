@@ -14,10 +14,9 @@
 
 
 (begin-for-syntax
-  ;; If we want to make existing syntactic bindings as
-  ;; infix operators too, we need some way of communicating
-  ;; this out-of-band.  I'll use a hashtable here that
-  ;; exists at compile time.
+  ;; We need some way of communicating that some thing
+  ;; should be treated as an infix operator.
+  ;; I'll use a hashtable here that exists at compile time.
   (define auxiliary-infix-transformers
     (make-free-identifier-mapping)))
 
