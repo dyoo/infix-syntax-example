@@ -4,13 +4,7 @@
 ;; that we only use at compile-time.
 (require (for-syntax "infix-syntax-compile-time.rkt"))
 
-;; Here's an example of such an infix macro.
-(define-syntax :=
-  (infix-syntax-transformer
-   (lambda (stx)
-     (syntax-case stx ()
-       [(lhs _ rhs)
-        (syntax/loc stx (set! lhs rhs))]))))
+(provide my-app)
 
 
 ;; This defines a protocol for infix syntax that works on top of
@@ -23,10 +17,9 @@
 ;; we let the infix syntax macro take over.
 (define-syntax (my-app stx)
   (syntax-case stx ()
-    
     [(_ lhs op rhs)
      (and (identifier? #'op)
-          (infix-syntax-transformer? (syntax-local-value #'op)))
+          (infix-syntax-transformer? (syntax-local-value #'op (lambda () #f))))
      ((infix-syntax-transformer-proc (syntax-local-value #'op))
       (syntax/loc stx (lhs op rhs)))]
 
