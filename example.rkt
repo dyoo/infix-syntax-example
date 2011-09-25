@@ -12,21 +12,21 @@
 (check-equal? x 93)
 
 ;; We can label - as being an infixer as well.
-(define-infix-transformer - 
-  (lambda (stx) 
-    (syntax-case stx () 
-      [(lhs op rhs)
-       (syntax/loc stx (- lhs rhs))])))
-
+(declare-infix -)
 
 (x := (x - 1))
 (check-equal? x 92)
 
-;; This should raise an exception, because the + here masks the one
-;; from our language, the one that's been labeled explicitly as
-;; an infix operator.
+;; The following should tickle an exception, because when we use the
+;; let, the + here masks the one from our language, the one that's
+;; been labeled explicitly as an infix operator.
 (check-exn
  exn:fail?
  (lambda ()
    (let ([+ (lambda (x y) (+ x y))])
      (x := (x + 50)))))
+
+
+;; We can declare division to be infix as well:
+(declare-infix /)
+(check-equal? (3 / 4) (/ 3 4))
