@@ -20,7 +20,7 @@
   (syntax-case stx ()
     ;; One way to trigger the protocol is to have op be an infix
     ;; syntax transformer.
-    [(_ lhs op rhs)
+    #;[(_ lhs op rhs)
      (and (identifier? #'op)
           (infix-syntax-transformer? (syntax-local-value #'op (lambda () #f))))
      ((infix-syntax-transformer-proc (syntax-local-value #'op))
