@@ -1,4 +1,4 @@
-#lang s-exp "my-lang.rkt"
+#lang s-exp "infix-lang.rkt"
 (require rackunit
          (for-syntax racket/base))
 
